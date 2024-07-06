@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { Technologies } from '@prisma/client'
+import { TechnologyThemeEntity } from 'src/technology-theme/entities/technology-theme.entity'
 
 @ObjectType()
 export class TechnologyEntity implements Technologies {
@@ -11,4 +12,7 @@ export class TechnologyEntity implements Technologies {
 
   @Field(() => String)
   name: string
+
+  @Field(() => [TechnologyThemeEntity], { nullable: 'itemsAndList' })
+  colors: TechnologyThemeEntity
 }

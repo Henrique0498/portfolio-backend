@@ -14,9 +14,20 @@ datasource db {
 }
 
 model Technologies {
-  id        String    @id @default(uuid())
-  name      String    @unique
-  icon      String
+  id            String    @id @default(uuid())
+  name          String    @unique
+  icon          String
+  colors        TechnologyTheme[]
 
   @@map("technologies")
+}
+
+model TechnologyTheme {
+  id           String           @id @default(uuid())
+  idTech       String           @map("fk_technologies")
+  technology   Technologies     @relation(fields: [idTech], references: [id] )
+  color        String
+  type         String
+
+  @@map("technology_theme")
 }

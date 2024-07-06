@@ -19,6 +19,9 @@ export class TechnologiesService {
     const technologies = await this.prismaService.technologies.findMany({
       orderBy: {
         name: 'desc'
+      },
+      include: {
+        colors: true
       }
     })
 

@@ -11,7 +11,7 @@ import { TechnologiesService } from './technologies.service'
 import { UpdateTechnologyInput } from './dto/update-technology.input'
 import { CreateTechnologyInput } from './dto/create-technology.input'
 
-@Controller('api/v1/technologies')
+@Controller('v1/technologies')
 export class TechnologiesController {
   constructor(private readonly technologiesService: TechnologiesService) {}
 

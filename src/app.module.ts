@@ -8,22 +8,24 @@ import { JwtModule } from '@nestjs/jwt'
 import { AuthGuard } from './auth/auth.guard'
 import { APP_GUARD } from '@nestjs/core'
 import { IS_PRIVATE_KEY } from './services/is-public'
+import { GithubModule } from './github/github.module'
 
 @Module({
   imports: [
-    PrismaModule,
-    GraphqlModule,
-    TechnologiesModule,
-    TechnologyThemeModule,
-    AuthModule,
     JwtModule.register({
       privateKey: IS_PRIVATE_KEY,
       secret: IS_PRIVATE_KEY,
       global: true,
       signOptions: {
-        expiresIn: '60s'
+        expiresIn: '1h'
       }
-    })
+    }),
+    PrismaModule,
+    GraphqlModule,
+    TechnologiesModule,
+    TechnologyThemeModule,
+    AuthModule,
+    GithubModule
   ],
   controllers: [],
   providers: [

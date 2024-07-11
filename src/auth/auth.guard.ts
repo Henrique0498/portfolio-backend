@@ -5,6 +5,7 @@ import {
   UnauthorizedException
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
+import { GqlExecutionContext } from '@nestjs/graphql'
 import { JwtService } from '@nestjs/jwt'
 import { Request } from 'express'
 import { IS_PUBLIC_KEY } from 'src/services/is-public'
@@ -25,8 +26,17 @@ export class AuthGuard implements CanActivate {
     if (isPublic) {
       return true
     } else {
-      const request = context.switchToHttp().getRequest()
-      const token = this.extractTokenFromHeader(request)
+      const type = context.getType()
+      let token = ''
+
+      if (type === 'http') {
+        const request = context.switchToHttp().getRequest()
+        token = this.extractTokenFromHeader(request)
+      } else {
+        const newContext = GqlExecutionContext.create(context).getContext()
+
+        token = this.extractTokenFromRawHeader(newContext.req.rawHeaders)
+      }
 
       if (!token) {
         throw new UnauthorizedException()
@@ -42,6 +52,12 @@ export class AuthGuard implements CanActivate {
 
   private extractTokenFromHeader(request: Request) {
     const [type, token] = request?.headers?.authorization?.split(' ') ?? []
+    return type === 'Bearer' ? token : undefined
+  }
+
+  private extractTokenFromRawHeader(request: string[]) {
+    const [type, token] =
+      request.find((item) => item.includes('Bearer'))?.split(' ') ?? []
     return type === 'Bearer' ? token : undefined
   }
 }

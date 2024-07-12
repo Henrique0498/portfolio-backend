@@ -11,7 +11,7 @@ import { TechnologyThemeService } from './technology-theme.service'
 import { UpdateTechnologyThemeInput } from './dto/update-technology-theme.input'
 import { CreateTechnologyThemeInput } from './dto/create-technology-theme.input'
 
-@Controller('v1/technologyTheme')
+@Controller('v1/technology/themes')
 export class TechnologyThemeController {
   constructor(
     private readonly technologyThemeService: TechnologyThemeService

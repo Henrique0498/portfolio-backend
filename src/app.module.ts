@@ -9,6 +9,8 @@ import { AuthGuard } from './auth/auth.guard'
 import { APP_GUARD } from '@nestjs/core'
 import { IS_PRIVATE_KEY } from './services/is-public'
 import { GithubModule } from './github/github.module'
+import { UsersModule } from './users/users.module'
+import { TechnologyEdgesModule } from './technology-edges/technology-edges.module'
 
 @Module({
   imports: [
@@ -25,7 +27,9 @@ import { GithubModule } from './github/github.module'
     TechnologiesModule,
     TechnologyThemeModule,
     AuthModule,
-    GithubModule
+    GithubModule,
+    UsersModule,
+    TechnologyEdgesModule
   ],
   controllers: [],
   providers: [

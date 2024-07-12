@@ -17,9 +17,12 @@ model Technologies {
   id            String    @id @default(uuid())
   name          String    @unique
   icon          String
+  type          String
+  positionX     Int       @map("position_x")
+  positionY     Int       @map("position_y")
   colors        TechnologyTheme[]
-  sourceEdges TechnologyEdges[]  @relation("SourceTechnology")
-  targetEdges TechnologyEdges[]  @relation("TargetTechnology")
+  sourceEdges   TechnologyEdges[]  @relation("SourceTechnology")
+  targetEdges   TechnologyEdges[]  @relation("TargetTechnology")
 
   @@map("technologies")
 }

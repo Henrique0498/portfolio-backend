@@ -1,4 +1,4 @@
-import { InputType, Field } from '@nestjs/graphql'
+import { InputType, Field, Int } from '@nestjs/graphql'
 
 @InputType()
 export class CreateTechnologyInput {
@@ -7,4 +7,13 @@ export class CreateTechnologyInput {
 
   @Field(() => String)
   icon: string
+
+  @Field(() => String)
+  type: string
+
+  @Field(() => Int)
+  positionX: number
+
+  @Field(() => Int)
+  positionY: number
 }

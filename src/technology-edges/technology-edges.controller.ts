@@ -29,6 +29,8 @@ export class TechnologyEdgesController {
 
   @Post()
   async create(@Body() data: CreateTechnologyEdgeInput) {
+    console.log(data)
+
     return this.technologyEdgesService.create(data)
   }
 

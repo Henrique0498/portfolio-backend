@@ -11,6 +11,7 @@ import { IS_PRIVATE_KEY } from './services/is-public'
 import { GithubModule } from './github/github.module'
 import { UsersModule } from './users/users.module'
 import { TechnologyEdgesModule } from './technology-edges/technology-edges.module'
+import { ImageTextModule } from './image-text/image-text.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { TechnologyEdgesModule } from './technology-edges/technology-edges.modul
     AuthModule,
     GithubModule,
     UsersModule,
-    TechnologyEdgesModule
+    TechnologyEdgesModule,
+    ImageTextModule
   ],
   controllers: [],
   providers: [

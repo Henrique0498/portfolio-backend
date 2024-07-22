@@ -14,45 +14,46 @@ datasource db {
 }
 
 model Technologies {
-  id            String    @id @default(uuid())
-  name          String    @unique
-  icon          String
-  type          String
-  positionX     Int       @map("position_x")
-  positionY     Int       @map("position_y")
-  colors        TechnologyTheme[]
-  sourceEdges   TechnologyEdges[]  @relation("SourceTechnology")
-  targetEdges   TechnologyEdges[]  @relation("TargetTechnology")
+  id                         String              @id @default(uuid())
+  name                       String              @unique
+  icon                       String
+  type                       String
+  positionX                  Int                 @map("position_x")
+  positionY                  Int                 @map("position_y")
+  colors                     TechnologyTheme[]
+  sourceEdges                TechnologyEdges[]   @relation("SourceTechnology")
+  targetEdges                TechnologyEdges[]   @relation("TargetTechnology")
 
   @@map("technologies")
 }
 
 model TechnologyTheme {
-  id           String           @id @default(uuid())
-  idTech       String           @map("fk_technologies")
-  technology   Technologies     @relation(fields: [idTech], references: [id] )
-  color        String
-  type         String
+  id                         String              @id @default(uuid())
+  idTech                     String              @map("fk_technologies")
+  technology                 Technologies        @relation(fields: [idTech], references: [id] )
+  color                      String
+  type                       String
 
   @@map("technology_theme")
 }
 
 model TechnologyEdges {
-  id           String           @id @default(uuid())
-  source   String
-  target   String
-  source_relation     Technologies  @relation("SourceTechnology", fields: [source], references: [id])
-  target_relation     Technologies  @relation("TargetTechnology", fields: [target], references: [id])
+  id                         String              @id @default(uuid())
+  source                     String
+  target                     String
+  source_relation            Technologies        @relation("SourceTechnology", fields: [source], references: [id])
+  target_relation            Technologies        @relation("TargetTechnology", fields: [target], references: [id])
 
   @@map("technology_edges")
 }
 
-// model Users {
-//   id           String           @id @default(uuid())
-//   name         String
-//   type         String
-//   password     String
-//   email        String
+model Token {
+  id                         String              @id @default(uuid())
+  token                      String
+  origin                     String
+  expires                    DateTime
+  created                    DateTime            @default(now())
+  updated                    DateTime            @updatedAt
 
-//   @@map("users")
-// }
+  @@map("token")
+}

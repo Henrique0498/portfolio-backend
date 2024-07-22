@@ -1,7 +1,8 @@
-import { ExecutionContext } from '@nestjs/common'
+import { ExecutionContext, Injectable } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Request } from 'express'
 
+@Injectable()
 export class GetToken {
   toContext(context: ExecutionContext) {
     const typeRequest = context.getType()
@@ -9,6 +10,7 @@ export class GetToken {
 
     if (!token && typeRequest === 'http') {
       const request = context.switchToHttp().getRequest()
+
       token = this.toRequest(request)
     }
     if (!token) {
@@ -21,14 +23,18 @@ export class GetToken {
   }
 
   toRequest(request: Request) {
-    const [type, token] = request?.headers?.authorization?.split(' ') ?? []
+    const [_, bearerToken] = request?.headers?.authorization?.split(' ') ?? []
 
-    return type === 'Bearer' ? token : null
+    if (!bearerToken) {
+      return request.cookies.token
+    }
+
+    return bearerToken
   }
 
   private toArray(value: string[]) {
     const findToken = value.find((item) => item.includes('Bearer'))
-    const [type, token] = findToken.split(' ') ?? []
+    const [type, token] = findToken?.split(' ') ?? []
 
     return type === 'Bearer' ? token : null
   }

@@ -19,10 +19,7 @@ import { SharedModule } from './helpers/shared.module'
     JwtModule.register({
       privateKey: IS_PRIVATE_KEY,
       secret: IS_PRIVATE_KEY,
-      global: true,
-      signOptions: {
-        expiresIn: '10s'
-      }
+      global: true
     }),
     SharedModule,
     PrismaModule,

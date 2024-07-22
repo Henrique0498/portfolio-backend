@@ -19,10 +19,12 @@ import { InAuthPostPublic } from './interfaces/auth-public'
 import { AuthValidatePublicPipe } from './pipes/auth-post-public.pipe'
 import { Public } from 'src/services/is-public'
 import { AuthRefreshGuard } from 'src/common/guards/auth-refresh.guard'
+import { InGenerateToken } from './interfaces/auth-generete-token'
 
 @Controller('v1/auth')
 export class AuthController {
   private readonly firstTokenTime = 15
+  private readonly refreshTokenTime = 60 * 24 * 7
 
   constructor(
     private readonly serviceAuth: AuthService,
@@ -35,7 +37,7 @@ export class AuthController {
   @UsePipes(AuthValidatePublicPipe)
   async publicFrontEnd(@Body() data: InAuthPostPublic) {
     const dbToken = await this.serviceAuth.getOneFromIP(data.ip)
-    const { expires, token } = await this.generateToken(data.ip)
+    const { expires, token } = await this.generateToken({ origin: data.ip })
 
     try {
       if (dbToken) {
@@ -76,7 +78,10 @@ export class AuthController {
     }
 
     try {
-      const { expires, token } = await this.generateToken(dbToken.origin)
+      const { expires, token } = await this.generateToken({
+        origin: dbToken.origin,
+        isRefresh: true
+      })
       await this.serviceAuth.update(dbToken.id, {
         expires,
         token
@@ -94,13 +99,23 @@ export class AuthController {
     }
   }
 
-  private async generateToken(origin: string, type = 'public') {
-    const expires = addMinutes(new Date(), this.firstTokenTime)
+  private async generateToken({
+    origin,
+    isRefresh = false,
+    type = 'public'
+  }: InGenerateToken) {
+    const time = isRefresh ? this.refreshTokenTime : this.firstTokenTime
+    const expires = addMinutes(new Date(), time)
 
-    const token = await this.jwtService.signAsync({
-      origin,
-      type
-    })
+    const token = await this.jwtService.signAsync(
+      {
+        origin,
+        type
+      },
+      {
+        expiresIn: `${time}m`
+      }
+    )
 
     return { expires, token }
   }

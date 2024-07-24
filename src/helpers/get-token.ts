@@ -6,7 +6,7 @@ import { Request } from 'express'
 export class GetToken {
   toContext(context: ExecutionContext) {
     const typeRequest = context.getType()
-    let token = context.switchToHttp().getRequest().cookies.token as string
+    let token = context.switchToHttp().getRequest()?.cookies.token as string
 
     if (!token && typeRequest === 'http') {
       const request = context.switchToHttp().getRequest()

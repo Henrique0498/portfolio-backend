@@ -11,7 +11,7 @@ import { CreateTechnologyEdgeInput } from './dto/create-technology-edge.input'
 import { TechnologyEdgesService } from './technology-edges.service'
 import { UpdateTechnologyEdgeInput } from './dto/update-technology-edge.input'
 
-@Controller('v1/technology/edges')
+@Controller('v1/technologyEdges')
 export class TechnologyEdgesController {
   constructor(
     private readonly technologyEdgesService: TechnologyEdgesService

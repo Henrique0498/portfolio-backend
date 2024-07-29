@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { CreateTechnologyInput } from './dto/create-technology.input'
 import { UpdateTechnologyInput } from './dto/update-technology.input'
 import { PrismaService } from 'src/lib/prisma/prisma.service'
+import { InTechnologiesResponseDb } from './interface/technologies-response-db'
 
 @Injectable()
 export class TechnologiesService {
@@ -28,14 +29,23 @@ export class TechnologiesService {
     return technologies
   }
 
-  async findOne(id: string) {
-    const technologies = await this.prismaService.technologies.findUnique({
+  async findOne(id: string): Promise<InTechnologiesResponseDb> {
+    return this.prismaService.technologies.findUnique({
       where: {
         id
+      },
+      include: {
+        colors: {
+          select: {
+            color: true,
+            type: true
+          },
+          orderBy: {
+            type: 'asc'
+          }
+        }
       }
     })
-
-    return technologies
   }
 
   async update(id: string, data: UpdateTechnologyInput) {

@@ -71,9 +71,7 @@ export class TechnologiesController {
 
   private formatResponseTechnology(value: InTechnologiesResponseDb) {
     const colors = value.colors.reduce<ColorMapping>((acc, color) => {
-      const keyColor = this.toCamelCase(color.type)
-
-      acc[keyColor] = color.color
+      acc[color.type] = color.color
       return acc
     }, {})
 

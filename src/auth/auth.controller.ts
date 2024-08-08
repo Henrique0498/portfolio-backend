@@ -10,7 +10,6 @@ import {
   UsePipes
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { defaultMessageUnauthorized } from 'src/services/messages'
 import { AuthService } from './auth.service'
 import { addMinutes } from 'date-fns'
 import { Request } from 'express'
@@ -74,7 +73,7 @@ export class AuthController {
     const dbToken = await this.serviceAuth.getOneFromToken(requestToken)
 
     if (!dbToken) {
-      throw new UnauthorizedException(defaultMessageUnauthorized)
+      throw new UnauthorizedException('You are not authorized to do this')
     }
 
     try {

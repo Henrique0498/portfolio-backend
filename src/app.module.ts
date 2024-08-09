@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-import { GraphqlModule } from './graphql/graphql.module'
 import { TechnologiesModule } from './technologies/technologies.module'
 import { PrismaModule } from './lib/prisma/prisma.module'
 import { TechnologyThemeModule } from './technology-theme/technology-theme.module'
@@ -23,7 +22,6 @@ import { SharedModule } from './helpers/shared.module'
     }),
     SharedModule,
     PrismaModule,
-    GraphqlModule,
     TechnologiesModule,
     TechnologyThemeModule,
     AuthModule,

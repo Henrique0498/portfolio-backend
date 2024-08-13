@@ -9,10 +9,11 @@ import { IS_PUBLIC_KEY } from 'src/services/is-public'
 @Injectable()
 export class AuthValidatePublicPipe implements PipeTransform {
   transform(value: InAuthPostPublic) {
-    console.log('value.publicKey', value?.publicKey)
-    console.log('value.ip', value?.ip)
-
-    if (!value.publicKey || !value.ip || value.publicKey !== IS_PUBLIC_KEY) {
+    if (
+      !value.publicKey ||
+      !value.ip ||
+      value.publicKey.replaceAll('\\$', '$') !== IS_PUBLIC_KEY
+    ) {
       throw new UnauthorizedException('You are not authorized to do this')
     }
 

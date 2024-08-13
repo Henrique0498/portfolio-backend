@@ -5,9 +5,19 @@ import { ValidationPipe } from '@nestjs/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  const nodeEnv = process.env.NODE_ENV as 'production' | 'development'
+  const originWhitelist = {
+    production: [
+      'https://henriquelopes.dev.br',
+      'vue.https://henriquelopes.dev.br'
+    ],
+    development: ['http://localhost:3000', 'http://localhost:3001']
+  }
+
+  const origin = originWhitelist[nodeEnv]
 
   app.enableCors({
-    origin: 'https://henriquelopes.dev.br',
+    origin,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
     credentials: true

@@ -12,6 +12,7 @@ import { UsersModule } from './users/users.module'
 import { TechnologyEdgesModule } from './technology-edges/technology-edges.module'
 import { ImageTextModule } from './image-text/image-text.module'
 import { SharedModule } from './helpers/shared.module'
+import { CodeHighlightersModule } from './code-highlighters/code-highlighters.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { SharedModule } from './helpers/shared.module'
     GithubModule,
     UsersModule,
     TechnologyEdgesModule,
-    ImageTextModule
+    ImageTextModule,
+    CodeHighlightersModule
   ],
   controllers: [],
   providers: [

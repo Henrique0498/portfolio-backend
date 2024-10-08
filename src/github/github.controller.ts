@@ -12,45 +12,11 @@ export class GithubController {
 
   @Get('/repos')
   async getProjects(
-    @Query('visibility') visibility: string,
-    @Query('visibility') per_page: number,
-    @Query('sort') sort = 'updated',
-    @Query('page') page: number
+    @Query('per_page ') per_page = 12,
+    @Query('sort') sort = 'updated'
   ) {
-    let params = `sort=${sort}`
-
-    if (visibility) {
-      params += `visibility=${visibility}`
-    }
-    if (per_page) {
-      params += `per_page=${per_page}`
-    }
-    if (page) {
-      params += `page=${page}`
-    }
+    const params = `sort=${sort}&per_page=${per_page}&visibility=public`
 
     return this.githubService.github(`users/Henrique0498/repos?${params}`)
-  }
-
-  @Get('/repos/all')
-  async getProjectsAll(
-    @Query('visibility') visibility: string,
-    @Query('visibility') per_page: number,
-    @Query('sort') sort = 'updated',
-    @Query('page') page: number
-  ) {
-    let params = `sort=${sort}`
-
-    if (visibility) {
-      params += `visibility=${visibility}`
-    }
-    if (per_page) {
-      params += `per_page=${per_page}`
-    }
-    if (page) {
-      params += `page=${page}`
-    }
-
-    return this.githubService.github(`user/repos?${params}`)
   }
 }

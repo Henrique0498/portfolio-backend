@@ -13,6 +13,7 @@ import { TechnologyEdgesModule } from './technology-edges/technology-edges.modul
 import { ImageTextModule } from './image-text/image-text.module'
 import { SharedModule } from './helpers/shared.module'
 import { CodeHighlightersModule } from './code-highlighters/code-highlighters.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { CodeHighlightersModule } from './code-highlighters/code-highlighters.mo
     UsersModule,
     TechnologyEdgesModule,
     ImageTextModule,
-    CodeHighlightersModule
+    CodeHighlightersModule,
+    ProjectsModule
   ],
   controllers: [],
   providers: [

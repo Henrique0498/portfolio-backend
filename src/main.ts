@@ -9,7 +9,7 @@ async function bootstrap() {
   const originWhitelist = {
     production: [
       'https://henriquelopes.dev.br',
-      'vue.https://henriquelopes.dev.br'
+      'https://vue.henriquelopes.dev.br'
     ],
     development: ['http://localhost:3000', 'http://localhost:3001']
   }

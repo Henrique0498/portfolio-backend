@@ -7,9 +7,9 @@ import {
   Patch,
   Post
 } from '@nestjs/common'
-import { CreateTechnologyEdgeInput } from './dto/create-technology-edge.input'
+import { CreateTechnologyEdgeDto } from './dto/create-technology-edge.dto'
 import { TechnologyEdgesService } from './technology-edges.service'
-import { UpdateTechnologyEdgeInput } from './dto/update-technology-edge.input'
+import { UpdateTechnologyEdgeDto } from './dto/update-technology-edge.dto'
 
 @Controller('v1/technologyEdges')
 export class TechnologyEdgesController {
@@ -28,15 +28,12 @@ export class TechnologyEdgesController {
   }
 
   @Post()
-  async create(@Body() data: CreateTechnologyEdgeInput) {
+  async create(@Body() data: CreateTechnologyEdgeDto) {
     return this.technologyEdgesService.create(data)
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() data: UpdateTechnologyEdgeInput
-  ) {
+  async update(@Param('id') id: string, @Body() data: UpdateTechnologyEdgeDto) {
     return this.technologyEdgesService.update(id, data)
   }
 

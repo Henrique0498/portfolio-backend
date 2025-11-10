@@ -1,5 +1,4 @@
 import { ExecutionContext, Injectable } from '@nestjs/common'
-import { GqlExecutionContext } from '@nestjs/graphql'
 import { Request } from 'express'
 
 @Injectable()
@@ -12,11 +11,6 @@ export class GetToken {
       const request = context.switchToHttp().getRequest()
 
       token = this.toRequest(request)
-    }
-    if (!token) {
-      const gqlContext = GqlExecutionContext.create(context).getContext()
-
-      token = this.toArray(gqlContext.req.rawHeaders)
     }
 
     return token

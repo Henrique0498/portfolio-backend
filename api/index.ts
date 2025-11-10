@@ -1,12 +1,20 @@
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
+import { AppModule } from '../src/app.module'
 import cookieParser from 'cookie-parser'
 import { ValidationPipe } from '@nestjs/common'
+import { ExpressAdapter } from '@nestjs/platform-express'
 import { NestExpressApplication } from '@nestjs/platform-express'
+import express from 'express'
 import { join } from 'path'
 
+const server = express()
+
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(
+    AppModule,
+    new ExpressAdapter(server)
+  )
+
   const nodeEnv = process.env.NODE_ENV as 'production' | 'development'
   const originWhitelist = {
     production: [
@@ -26,11 +34,13 @@ async function bootstrap() {
   })
 
   app.use(cookieParser())
-
   app.useGlobalPipes(new ValidationPipe())
 
   app.useStaticAssets(join(__dirname, '..', 'public'))
 
-  await app.listen(3333)
+  await app.init()
 }
+
 bootstrap()
+
+export default server

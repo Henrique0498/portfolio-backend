@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common'
 import { CodeHighlightersService } from './code-highlighters.service'
-import { CreateCodeHighlightersInput } from './entities/create-code-highlighters.input'
+import { CreateCodeHighlightersDto } from './dto/create-code-highlighters.dto'
 
 @Controller('v1/codeHighlighters')
 export class CodeHighlightersController {
@@ -9,7 +9,7 @@ export class CodeHighlightersController {
   ) {}
 
   @Post()
-  create(@Body() data: CreateCodeHighlightersInput) {
+  create(@Body() data: CreateCodeHighlightersDto) {
     return this.codeHighlightersService.create(data)
   }
 }

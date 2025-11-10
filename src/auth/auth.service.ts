@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/lib/prisma/prisma.service'
-import { CreateAuthInput } from './dto/create-auth.input'
-import { UpdateAuthInput } from './dto/update-auth.input'
+import { CreateAuthDto } from './dto/create-auth.dto'
+import { UpdateAuthDto } from './dto/update-auth.dto'
 
 @Injectable()
 export class AuthService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(data: CreateAuthInput) {
+  async create(data: CreateAuthDto) {
     const token = await this.prismaService.token.create({ data })
 
     return token
@@ -33,7 +33,7 @@ export class AuthService {
     return resultToken
   }
 
-  async update(id: string, data: UpdateAuthInput) {
+  async update(id: string, data: UpdateAuthDto) {
     const token = await this.prismaService.token.update({
       where: {
         id

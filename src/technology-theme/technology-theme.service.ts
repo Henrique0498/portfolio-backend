@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
-import { CreateTechnologyThemeInput } from './dto/create-technology-theme.input'
-import { UpdateTechnologyThemeInput } from './dto/update-technology-theme.input'
+import { CreateTechnologyThemeDto } from './dto/create-technology-theme.dto'
+import { UpdateTechnologyThemeDto } from './dto/update-technology-theme.dto'
 import { PrismaService } from 'src/lib/prisma/prisma.service'
 
 @Injectable()
 export class TechnologyThemeService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(data: CreateTechnologyThemeInput) {
+  async create(data: CreateTechnologyThemeDto) {
     const color = await this.prismaService.technologyTheme.create({ data })
 
     return color
@@ -35,7 +35,7 @@ export class TechnologyThemeService {
     return color
   }
 
-  async update(id: string, data: UpdateTechnologyThemeInput) {
+  async update(id: string, data: UpdateTechnologyThemeDto) {
     const color = await this.prismaService.technologyTheme.update({
       where: { id },
       data

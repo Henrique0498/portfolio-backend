@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { CreateTechnologyInput } from './dto/create-technology.input'
-import { UpdateTechnologyInput } from './dto/update-technology.input'
+import { CreateTechnologyDto } from './dto/create-technology.dto'
+import { UpdateTechnologyDto } from './dto/update-technology.dto'
 import { PrismaService } from 'src/lib/prisma/prisma.service'
 import { InTechnologiesResponseDb } from './interface/technologies-response-db'
 
@@ -8,7 +8,7 @@ import { InTechnologiesResponseDb } from './interface/technologies-response-db'
 export class TechnologiesService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(data: CreateTechnologyInput) {
+  async create(data: CreateTechnologyDto) {
     const technology = await this.prismaService.technologies.create({
       data
     })
@@ -48,7 +48,7 @@ export class TechnologiesService {
     })
   }
 
-  async update(id: string, data: UpdateTechnologyInput) {
+  async update(id: string, data: UpdateTechnologyDto) {
     const technologies = await this.prismaService.technologies.update({
       where: {
         id

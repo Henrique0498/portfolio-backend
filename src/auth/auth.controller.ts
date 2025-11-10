@@ -17,7 +17,7 @@ import { GetToken } from 'src/helpers/get-token'
 import { InAuthPostPublic } from './interfaces/auth-public'
 import { AuthValidatePublicPipe } from './pipes/auth-post-public.pipe'
 import { Public } from 'src/services/is-public'
-import { AuthRefreshGuard } from 'src/common/guards/auth-refresh.guard'
+import { AuthRefreshGuard } from '../common/guards/auth-refresh.guard'
 import { InGenerateToken } from './interfaces/auth-generete-token'
 
 @Controller('v1/auth')

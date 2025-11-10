@@ -8,8 +8,8 @@ import {
   Post
 } from '@nestjs/common'
 import { TechnologyThemeService } from './technology-theme.service'
-import { UpdateTechnologyThemeInput } from './dto/update-technology-theme.input'
-import { CreateTechnologyThemeInput } from './dto/create-technology-theme.input'
+import { UpdateTechnologyThemeDto } from './dto/update-technology-theme.dto'
+import { CreateTechnologyThemeDto } from './dto/create-technology-theme.dto'
 
 @Controller('v1/technology/themes')
 export class TechnologyThemeController {
@@ -28,14 +28,14 @@ export class TechnologyThemeController {
   }
 
   @Post()
-  async create(@Body() createDto: CreateTechnologyThemeInput) {
+  async create(@Body() createDto: CreateTechnologyThemeDto) {
     return this.technologyThemeService.create(createDto)
   }
 
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateData: UpdateTechnologyThemeInput
+    @Body() updateData: UpdateTechnologyThemeDto
   ) {
     return this.technologyThemeService.update(id, updateData)
   }

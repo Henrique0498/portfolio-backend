@@ -10,8 +10,8 @@ import {
   Post
 } from '@nestjs/common'
 import { TechnologiesService } from './technologies.service'
-import { UpdateTechnologyInput } from './dto/update-technology.input'
-import { CreateTechnologyInput } from './dto/create-technology.input'
+import { UpdateTechnologyDto } from './dto/update-technology.dto'
+import { CreateTechnologyDto } from './dto/create-technology.dto'
 import {
   ColorType,
   InTechnologiesResponseDb
@@ -52,14 +52,14 @@ export class TechnologiesController {
   }
 
   @Post()
-  async create(@Body() createDto: CreateTechnologyInput) {
+  async create(@Body() createDto: CreateTechnologyDto) {
     return this.technologiesService.create(createDto)
   }
 
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateData: UpdateTechnologyInput
+    @Body() updateData: UpdateTechnologyDto
   ) {
     return this.technologiesService.update(id, updateData)
   }

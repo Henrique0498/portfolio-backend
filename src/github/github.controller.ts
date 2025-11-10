@@ -1,5 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common'
 import { GithubService } from './github.service'
+import { Public } from 'src/services/is-public'
 
 @Controller('v1/github')
 export class GithubController {

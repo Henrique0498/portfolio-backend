@@ -64,7 +64,6 @@ export class AuthController {
     }
   }
 
-  @Public()
   @UseGuards(AuthRefreshGuard)
   @Post('/refresh')
   async refresh(@Req() request: Request) {
